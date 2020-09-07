@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Rock-Paper-Scissors</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>  
+    </head>
+
+    <body>
+        <header>
+            <nav id="scoreboard">
+                <ul>
+                    <li>Round:<p id="round">0</p></li>
+                    <li>User score:<p id="userScore">0</p></li>
+                    <li>AI score:<p id="pcScore">0</p></li>
+                    <li>Points needed to win:<p id="pointsNeeded">3</p></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="animation">
+                <div id="User">
+                    <p>User</p>
+                    <i class="fa fa-hand-rock" id="user_icon"></i>
+                </div>
+
+                <div id="Pc">
+                    <p>AI</p>
+                    <i class="fa fa-hand-rock" id="ai_icon"></i>
+                </div>
+            </section>
+
+            <section>
+                <p id="result"> </p>
+            </section>
+
+            <section id="option">
+                <button onclick="game('rock')" type="button" id="rock">Rock</button>
+                <button onclick="game('paper')" type="button" id="paper">Paper</button>
+                <button onclick="game('scissor')" type="button" id="scissor">Scissor</button>
+            </section>
+
+        </main>
+
+        <footer>
+            <!-- Reset button -->
+            <button onclick="reset()" type="button" id="reset">Reset</button>
+
+        </footer>
+
+        <script>
+            // variables
+            let round = parseInt(document.getElementById("round").innerHTML);
+            let user_score = parseInt(document.getElementById("userScore").innerHTML);
+            let pc_score = parseInt(document.getElementById("pcScore").innerHTML);
+            let score_to_win = parseInt(document.getElementById("pointsNeeded").innerHTML);
+
+            function game(user_choice) {
+                if (user_score < score_to_win && pc_score < score_to_win) {
+                    round++;
+                    document.getElementById("round").innerHTML = round;
+
+                    // PC choice
+                    // to-do | look up how the the pc can pick a random choice.
+                    var pc_choices = ["rock", "paper", "scissor"];
+                    pc_choice = pc_choices[Math.floor(Math.random() * pc_choices.length)];
+
+                    // text if of them wins
+                    let user_win_text = "Point for User";
+                    let pc_win_text = "Point for AI";
+
+                    // The same
+                    if (user_choice == "rock" && pc_choice == "rock") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-rock" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-rock" id="ai_icon"></i>';
+                        document.getElementById("result").innerHTML = "The same";
+                    }
+                    else if (user_choice == "paper" && pc_choice == "paper") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-paper" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-paper" id="ai_icon"></i>';
+                        document.getElementById("result").innerHTML = "The same";
+                    }
+                    else if (user_choice == "scissor" && pc_choice == "scissor") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-scissors" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-scissors" id="ai_icon"></i>';
+                        document.getElementById("result").innerHTML = "The same";
+                    }
+                    // User win
+                    else if (user_choice == "rock" && pc_choice == "scissor") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-rock" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-scissors" id="ai_icon"></i>';
+                        user_scored(user_win_text);
+                    }
+                    else if (user_choice == "paper" && pc_choice == "rock") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-paper" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-rock" id="ai_icon"></i>';
+                        user_scored(user_win_text);
+                    }
+                    else if (user_choice == "scissor" && pc_choice == "paper") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-scissors" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-paper" id="ai_icon"></i>';
+                        user_scored(user_win_text);
+                    }
+                    // AI win
+                    else if (user_choice == "rock" && pc_choice == "paper") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-rock" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-paper" id="ai_icon"></i>';
+                        pc_scored(pc_win_text);
+                    }
+                    else if (user_choice == "paper" && pc_choice == "scissor") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-paper" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-scissors" id="ai_icon"></i>';
+                        pc_scored(pc_win_text);
+                    }
+                    else if (user_choice == "scissor" && pc_choice == "rock") {
+                        document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-scissors" id="user_icon"></i>';
+                        document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-rock" id="ai_icon"></i>';
+                        pc_scored(pc_win_text);
+                    }
+
+                    // checks if someone won
+                    if (user_score == score_to_win) {
+                        document.getElementById("result").innerHTML = "You won :)";
+                    }
+                    else if (pc_score == score_to_win) {
+                        document.getElementById("result").innerHTML = "You lost :(";
+                    }
+                }
+            }
+
+            function pc_scored(text) {
+                pc_score++;
+                document.getElementById("result").innerHTML = text;
+                document.getElementById("pcScore").innerHTML = pc_score;
+            }
+
+            function user_scored(text) {
+                user_score++
+                document.getElementById("result").innerHTML = text;
+                document.getElementById("userScore").innerHTML = user_score;
+            }
+
+            function reset() {
+                round = 0;
+                user_score = 0;
+                pc_score = 0;
+                document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-rock" id="user_icon"></i>';
+                document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-rock" id="ai_icon"></i>';
+                document.getElementById("result").innerHTML = "";
+                document.getElementById("round").innerHTML = round;
+                document.getElementById("userScore").innerHTML = user_score;
+                document.getElementById("pcScore").innerHTML = pc_score;
+            }
+        
+        </script>
+    </body>
+</html>
+
