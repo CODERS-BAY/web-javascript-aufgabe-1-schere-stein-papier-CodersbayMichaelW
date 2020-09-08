@@ -35,8 +35,18 @@ body {
 #scoreboard li:not(:first-child) {
     margin-top: 1rem;
 }
-#scoreboard li p {
+#scoreboard li p,#scoreboard li input {
     margin-left: 0.5rem;
+}
+#scoreboard input {
+    font-size: 1rem;
+    color: var(--grey);
+    background-color: var(--dark);
+    border: none;
+    width: 2rem;
+}
+#scoreboard input:focus {
+    background-color: var(--black);
 }
 
 /* animation */
@@ -69,7 +79,7 @@ body {
     -webkit-animation: move_user 1s 6;
     -moz-animation: move_user 1s 6;
     -o-animation: move_user 1s 6;
-    animation: move_user .5s 2;
+    animation: move_user 1s 6;
     animation-direction: alternate;  
 }
 
@@ -82,6 +92,7 @@ body {
 #result {
     text-align: center;
     align-self: center;
+    font-size: 1rem;
     margin: 5rem 0 0.5rem 0;
     height: 5.5rem;
 }

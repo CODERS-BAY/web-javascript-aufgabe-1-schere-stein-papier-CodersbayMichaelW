@@ -16,7 +16,9 @@
                     <li>Round:<p id="round">0</p></li>
                     <li>User score:<p id="userScore">0</p></li>
                     <li>AI score:<p id="pcScore">0</p></li>
-                    <li>Points needed to win:<p id="pointsNeeded">3</p></li>
+                    <li>Points needed to win:
+                        <input type="text" id="pointsNeeded" name="points" value="3">
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -54,10 +56,11 @@
 
         <script>
             // variables
-            let round = parseInt(document.getElementById("round").innerHTML);
-            let user_score = parseInt(document.getElementById("userScore").innerHTML);
-            let pc_score = parseInt(document.getElementById("pcScore").innerHTML);
-            let score_to_win = parseInt(document.getElementById("pointsNeeded").innerHTML);
+            var round = parseInt(document.getElementById("round").innerHTML);
+            var user_score = parseInt(document.getElementById("userScore").innerHTML);
+            var pc_score = parseInt(document.getElementById("pcScore").innerHTML);
+            var points_needed = document.getElementById("pointsNeeded");
+            var score_to_win = parseInt(points_needed.value);
 
             function game(user_choice) {
                 if (user_score < score_to_win && pc_score < score_to_win) {
@@ -65,17 +68,17 @@
                     document.getElementById("round").innerHTML = round;
 
                     // play animation
-                    animation_user();
+                    animation_user(); // get's overwritten by visual_update
 
                     // update the visual
                     visual_update(user_choice);
 
                     // checks if someone won
                     if (user_score == score_to_win) {
-                        document.getElementById("result").innerHTML = "You won :)";
+                        winner_text("You won :)");
                     }
                     else if (pc_score == score_to_win) {
-                        document.getElementById("result").innerHTML = "You lost :(";
+                        winner_text("You lost :(");
                     }
                 }
             }
@@ -105,12 +108,15 @@
                     document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-scissors" id="user_icon"></i>';
                     document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-scissors" id="ai_icon"></i>';
                     document.getElementById("result").innerHTML = "The same";
+                    rotate_user_scissor_correct();
+                    rotate_pc_scissor_correct()
                 }
                 // User win
                 else if (user_choice == "rock" && pc_choice == "scissor") {
                     document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-rock" id="user_icon"></i>';
                     document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-scissors" id="ai_icon"></i>';
                     user_scored(user_win_text);
+                    rotate_pc_scissor_correct()
                 }
                 else if (user_choice == "paper" && pc_choice == "rock") {
                     document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-paper" id="user_icon"></i>';
@@ -121,6 +127,7 @@
                     document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-scissors" id="user_icon"></i>';
                     document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-paper" id="ai_icon"></i>';
                     user_scored(user_win_text);
+                    rotate_user_scissor_correct();
                 }
                 // AI win
                 else if (user_choice == "rock" && pc_choice == "paper") {
@@ -132,11 +139,13 @@
                     document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-paper" id="user_icon"></i>';
                     document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-scissors" id="ai_icon"></i>';
                     pc_scored(pc_win_text);
+                    rotate_pc_scissor_correct();
                 }
                 else if (user_choice == "scissor" && pc_choice == "rock") {
                     document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-scissors" id="user_icon"></i>';
                     document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-rock" id="ai_icon"></i>';
                     pc_scored(pc_win_text);
+                    rotate_user_scissor_correct();
                 }
             }
 
@@ -157,6 +166,19 @@
                 element.classList.add("animation_userhand");
             }
 
+            function rotate_user_scissor_correct() {
+                document.getElementById("user_icon").style.transform = "rotate(165deg)";
+            }
+
+            function rotate_pc_scissor_correct() {
+                document.getElementById("ai_icon").style.transform = "rotate(-165deg) scaleX(-1)";
+            }
+
+            function winner_text(text) {
+                document.getElementById("result").style.fontSize = "3rem";
+                document.getElementById("result").innerHTML = text;
+            }
+
             function reset() {
                 round = 0;
                 user_score = 0;
@@ -167,8 +189,15 @@
                 document.getElementById("round").innerHTML = round;
                 document.getElementById("userScore").innerHTML = user_score;
                 document.getElementById("pcScore").innerHTML = pc_score;
+                document.getElementById("result").style.fontSize = "1rem";
             }
-        
+
+            function upntw() {
+                score_to_win = parseInt(points_needed.value);
+            }
+
+            points_needed.addEventListener("keyup", upntw);
+
         </script>
     </body>
 </html>
