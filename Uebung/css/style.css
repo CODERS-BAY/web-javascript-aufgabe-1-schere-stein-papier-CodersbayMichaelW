@@ -76,16 +76,31 @@ body {
 }
 
 .animation_userhand {
-    -webkit-animation: move_user 1s 6;
-    -moz-animation: move_user 1s 6;
-    -o-animation: move_user 1s 6;
-    animation: move_user 1s 6;
-    animation-direction: alternate;  
+    -webkit-animation: move_user 0.5s 6;
+    -moz-animation: move_user 0.5s 6;
+    -o-animation: move_user 0.5s 6;
+    animation: move_user 0.5s 6;
+    animation-direction: alternate; 
+    animation-timing-function: ease-in-out; 
 }
 
 @keyframes move_user {
     from { transform: rotate(0deg) translateX(-200px) translateY(1000x) rotate(0deg); }
     to   { transform: rotate(0deg) translateX(0px) translateY(0px) rotate(0deg); }
+}
+
+.animation_aihand {
+    -webkit-animation: move_ai 0.5s 6;
+    -moz-animation: move_ai 0.5s 6;
+    -o-animation: move_ai 0.5s 6;
+    animation: move_ai 0.5s 6;
+    animation-direction: alternate; 
+    animation-timing-function: ease-in-out; 
+}
+
+@keyframes move_ai {
+    from { transform: rotate(0deg) scaleX(-1) translateX(-200px) translateY(1000x) rotate(0deg); }
+    to   { transform: rotate(0deg) scaleX(-1) translateX(0px) translateY(0px) rotate(0deg); }
 }
 
 /* result */

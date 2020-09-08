@@ -68,7 +68,9 @@
                     document.getElementById("round").innerHTML = round;
 
                     // play animation
-                    animation_user(); // get's overwritten by visual_update
+                    // get's overwritten by visual_update :(
+                    animation_user(); 
+                    animation_pc();
 
                     // update the visual
                     visual_update(user_choice);
@@ -162,8 +164,15 @@
             }
 
             function animation_user() {
+                document.getElementById("user_icon").outerHTML = '<i class="fa fa-hand-rock" id="user_icon"></i>';
                 let element = document.getElementById("user_icon");
                 element.classList.add("animation_userhand");
+            }
+
+            function animation_pc() {
+                document.getElementById("ai_icon").outerHTML = '<i class="fa fa-hand-rock" id="ai_icon"></i>';
+                let element = document.getElementById("ai_icon");
+                element.classList.add("animation_aihand");
             }
 
             function rotate_user_scissor_correct() {
