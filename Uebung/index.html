@@ -64,6 +64,9 @@
 
             function game(user_choice) {
                 if (user_score < score_to_win && pc_score < score_to_win) {
+                    // removes user choice
+                    remove_input();
+
                     round++;
                     document.getElementById("round").innerHTML = round;
 
@@ -82,6 +85,8 @@
                         else if (pc_score == score_to_win) {
                             winner_text("You lost :(");
                         }
+                        // add the choice back
+                        add_input();
                     }, 3050)
                 }
             }
@@ -204,6 +209,20 @@
 
             function upntw() {
                 score_to_win = parseInt(points_needed.value);
+            }
+
+            function remove_input() {
+                document.getElementById("rock").outerHTML = '<button class="no-click" type="button" id="rock2">Rock</button>';
+                document.getElementById("paper").outerHTML = '<button class="no-click" type="button" id="paper2">Paper</button>';
+                document.getElementById("scissor").outerHTML = '<button class="no-click" type="button" id="scissor2">Scissor</button>';
+                document.getElementById("reset").outerHTML = '<button class="no-click" type="button" id="reset2">Reset</button>';
+            }
+
+            function add_input() {
+                document.getElementById("rock2").outerHTML = '<button onclick="game(\'rock\')" type="button" id="rock">Rock</button>';
+                document.getElementById("paper2").outerHTML = '<button onclick="game(\'paper\')" type="button" id="paper">Paper</button>';
+                document.getElementById("scissor2").outerHTML = '<button onclick="game(\'scissor\')" type="button" id="scissor">Scissor</button>';
+                document.getElementById("reset2").outerHTML = '<button onclick="reset()" type="button" id="reset">Reset</button>';
             }
 
             points_needed.addEventListener("keyup", upntw);

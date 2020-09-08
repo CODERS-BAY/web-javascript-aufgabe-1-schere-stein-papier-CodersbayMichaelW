@@ -131,7 +131,6 @@ body {
     border-radius: 20px;
 }
 
-
 /* footer */
 footer {
     text-align: center;
@@ -139,7 +138,7 @@ footer {
     margin-bottom: 3rem;
     border-top: 0.1rem solid var(--cyan);
 }
-#reset {
+footer button {
     margin-top: 1rem;
     border: none;
     font-size: 5rem;
@@ -174,16 +173,19 @@ footer {
     }
 
     /* option */
-    #option button:hover {
+    #rock:hover, #paper:hover, #scissor:hover {
         background-color: var(--grey);
         box-shadow: 0 0 20px var(--grey);
     }
-    #option button:active {
+    #rock:active, #paper:active, #scissor:active {
         transform: scale(0.95);
+    }
+    .no-click:hover {
+        cursor: not-allowed;
     }
 
     /* footer */
-    #reset:hover {
+    footer #reset:hover {
         transform: translateY(2px);
         text-shadow: 0px -2px 0px rgba(0,0,0,1), 0 0 5px rgba(255,255,255,0.8),0 -4px 15px rgba(255,255,255,0.5);
     }
