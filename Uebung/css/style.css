@@ -65,6 +65,19 @@ body {
     transform         : rotate(-90deg) scaleX(-1); /* Firefox 16+, IE 10+, Opera */
 }
 
+.animation_userhand {
+    -webkit-animation: move_user 1s 6;
+    -moz-animation: move_user 1s 6;
+    -o-animation: move_user 1s 6;
+    animation: move_user .5s 2;
+    animation-direction: alternate;  
+}
+
+@keyframes move_user {
+    from { transform: rotate(0deg) translateX(-200px) translateY(1000x) rotate(0deg); }
+    to   { transform: rotate(0deg) translateX(0px) translateY(0px) rotate(0deg); }
+}
+
 /* result */
 #result {
     text-align: center;
