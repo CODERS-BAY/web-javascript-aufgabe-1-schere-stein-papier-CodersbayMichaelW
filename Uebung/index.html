@@ -69,19 +69,20 @@
 
                     // play animation
                     // get's overwritten by visual_update :(
-                    animation_user(); 
+                    animation_user();
                     animation_pc();
 
-                    // update the visual
-                    visual_update(user_choice);
-
-                    // checks if someone won
-                    if (user_score == score_to_win) {
-                        winner_text("You won :)");
-                    }
-                    else if (pc_score == score_to_win) {
-                        winner_text("You lost :(");
-                    }
+                    // updates the game and picks the winner
+                    setTimeout(function afterTwoSeconds() {
+                        visual_update(user_choice);
+                        // checks if someone won the game
+                        if (user_score == score_to_win) {
+                            winner_text("You won :)");
+                        }
+                        else if (pc_score == score_to_win) {
+                            winner_text("You lost :(");
+                        }
+                    }, 3050)
                 }
             }
 
